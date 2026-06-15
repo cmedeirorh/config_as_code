@@ -1,3 +1,5 @@
 ---
 collections:
-  - infra.aap_configuration
+  - name: ansible.platform
+  - name: ansible.controller
+  - name: infra.aap_configuration
