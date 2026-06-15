@@ -1,9 +1,0 @@
----
-controller_projects:
-  - name: "aap-workshop-examples"
-    organization: "Default"
-    scm_type: git
-    scm_url: "https://github.com/cmedeirorh/aap-workshop-examples"
-    scm_branch: "main"
-    scm_clean: true
-    scm_update_on_launch: true  
