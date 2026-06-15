@@ -4,7 +4,7 @@
   gather_facts: false
   vars_files:
     - config/vars.yml
-    - config/vault.yml
+#    - config/vault.yml
   tasks:
     - name: Apply AAP Configuration
       ansible.builtin.include_role:
