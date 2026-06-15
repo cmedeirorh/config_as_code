@@ -2,9 +2,14 @@
 - name: Apply Configuration as Code to AAP 2.7
   hosts: localhost
   gather_facts: false
-  vars_files:
-    - config/vars.yml
-#    - config/vault.yml
+  
+  pre_tasks:
+    - name: Load declarative AAP configurations
+      ansible.builtin.include_vars:
+        dir: ../config
+        extensions:
+          - 'yml'
+          - 'yaml'
   tasks:
     - name: Apply AAP Configuration
       ansible.builtin.include_role:
