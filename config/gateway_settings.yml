@@ -2,7 +2,6 @@
 gateway_settings:
   gateway_access_token_expiration: 1800
   gateway_basic_auth_enabled: true
-  session_cookie_age: 1800
   custom_login_info: |-
     WARNING: SECURED IT ENVIRONMENT
     This system is strictly for authorized use only. 
