@@ -1,0 +1,4 @@
+---
+gateway_settings:
+  gateway_access_token_expiration: 1800
+  gateway_basic_auth_enabled: true
