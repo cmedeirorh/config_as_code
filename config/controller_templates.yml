@@ -29,8 +29,66 @@ controller_templates:
     project: aap-workshop-examples
     playbook: playbooks/linux/4-rhel_monitoring_deploy.yml
     verbosity: 2
+    ask_limit_on_launch: true
+    ask_variables_on_launch: true
     credentials:
       - "Machine Credential for Instances"
     extra_vars:
       zabbix_server: "zabbix.sandbox.ansiblelab.net"
       installer_url: "https://repo.zabbix.com/zabbix/7.4/release/rhel/9/noarch/zabbix-release-latest.el9.noarch.rpm"
+
+  - name: EDA - Linux Deploy APP With Podman
+    job_type: run
+    inventory: Workshop Inventory
+    organization: "{{ my_organization }}"
+    execution_environment: workshop-custom-ee
+    project: aap-workshop-examples
+    playbook: playbooks/linux/6-rhel_podman_app_deploy.yml
+    verbosity: 2
+    ask_limit_on_launch: true
+    ask_variables_on_launch: true
+    credentials:
+      - "Machine Credential for Instances"
+    extra_vars:
+      app_name: "tasks-app"
+
+  - name: EDA - Report Incident to ServiceNow
+    job_type: run
+    inventory: Workshop Inventory
+    organization: "{{ my_organization }}"
+    execution_environment: workshop-custom-ee
+    project: aap-workshop-examples
+    playbook: playbooks/eda/servicenow_create_incident.yml
+    verbosity: 2
+    ask_limit_on_launch: true
+    ask_variables_on_launch: true
+    credentials:
+      - "Machine Credential for Instances"
+      - "ServiceNow Dev"
+
+  - name: EDA - Linux SSH Hardening
+    job_type: run
+    inventory: Workshop Inventory
+    organization: "{{ my_organization }}"
+    execution_environment: workshop-custom-ee
+    project: aap-workshop-examples
+    playbook: playbooks/linux/3-rhel_devsec_ssh_hardening.yml
+    verbosity: 2
+    ask_limit_on_launch: true
+    ask_variables_on_launch: true
+    credentials:
+      - "Machine Credential for Instances"
+
+  - name: EDA - Linux SELinux Config
+    job_type: run
+    inventory: Workshop Inventory
+    organization: "{{ my_organization }}"
+    execution_environment: workshop-custom-ee
+    project: aap-workshop-examples
+    playbook: playbooks/linux/8-rhel_sec_selinux_enforce.yml
+    verbosity: 2
+    ask_limit_on_launch: true
+    ask_variables_on_launch: true
+    credentials:
+      - "Machine Credential for Instances"
+      
