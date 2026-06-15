@@ -1,7 +1,7 @@
 ---
 controller_projects:
   - name: aap-workshop-examples
-    organization: "Default"
+    organization: "{{ my_organization }}"
     scm_type: git
     scm_url: https://github.com/cmedeirorh/aap-workshop-examples
     scm_branch: main
@@ -12,7 +12,7 @@ controller_templates:
   - name: 0 RHEL Sync SSH Keys
     job_type: run
     inventory: Workshop Inventory
-    organization: Default
+    organization: "{{ my_organization }}"
     execution_environment: workshop-custom-ee
     project: aap-workshop-examples
     playbook: playbooks/linux/0-rhel_sync_ssh_keys.yml
@@ -24,7 +24,7 @@ controller_templates:
   - name: EDA - Linux Deploy Monitoring Agent
     job_type: run
     inventory: Workshop Inventory
-    organization: Default
+    organization: "{{ my_organization }}"
     execution_environment: workshop-custom-ee
     project: aap-workshop-examples
     playbook: playbooks/linux/4-rhel_monitoring_deploy.yml
