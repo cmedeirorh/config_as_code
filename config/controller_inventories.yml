@@ -16,21 +16,21 @@ controller_inventory_sources:
     update_on_launch: true
     update_cache_timeout: 300
     source_vars:
-          hostnames:
-            - tag:Name
-          compose:
-            ansible_host: public_ip_address
-            ansible_user: 'ec2-user'
-          groups:
-            cloud_aws: true
-            os_linux: tags.blueprint.startswith('rhel')
-          keyed_groups:
-            - key: platform
-              prefix: os
-            - key: tags.blueprint
-              prefix: blueprint
-            - key: tags.owner
-              prefix: owner
-          filters:
-            tag:owner:
-              - "{{ uuid }}"
+      hostnames:
+        - tag:Name
+      compose:
+        ansible_host: public_ip_address
+        ansible_user: 'ec2-user'
+      groups:
+        cloud_aws: true
+        os_linux: tags.blueprint.startswith('rhel')
+      keyed_groups:
+        - key: platform
+          prefix: os
+        - key: tags.blueprint
+          prefix: blueprint
+        - key: tags.owner
+          prefix: owner
+      filters:
+        tag:owner:
+          - "{{ uuid }}"
