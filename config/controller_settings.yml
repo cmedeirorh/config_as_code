@@ -1,8 +1,8 @@
 ---
 controller_settings:
-  settings:
-    REDHAT_USERNAME: "{{ redhat_client_id }}"
-    REDHAT_PASSWORD: "{{ redhat_client_secret }}"
-    INSIGHTS_TRACKING_STATE: true
-    SUBSCRIPTIONS_CLIENT_ID: "{{ redhat_client_id }}"
-    SUBSCRIPTIONS_CLIENT_SECRET: "{{ redhat_client_secret }}"
+  SESSION_COOKIE_AGE: 1800
+  REDHAT_USERNAME: "{{ redhat_client_id }}"
+  REDHAT_PASSWORD: "{{ redhat_client_secret }}"
+  INSIGHTS_TRACKING_STATE: true
+  SUBSCRIPTIONS_CLIENT_ID: "{{ redhat_client_id }}"
+  SUBSCRIPTIONS_CLIENT_SECRET: "{{ redhat_client_secret }}"
