@@ -1,9 +1,36 @@
 ---
 controller_projects:
-  - name: "aap-workshop-examples"
+  - name: aap-workshop-examples
     organization: "Default"
     scm_type: git
-    scm_url: "https://github.com/cmedeirorh/aap-workshop-examples"
-    scm_branch: "main"
+    scm_url: https://github.com/cmedeirorh/aap-workshop-examples
+    scm_branch: main
     scm_clean: true
     scm_update_on_launch: true  
+
+controller_templates:
+  - name: 0 RHEL Sync SSH Keys
+    job_type: run
+    inventory: Workshop Inventory
+    organization: Default
+    execution_environment: workshop-custom-ee
+    project: aap-workshop-examples
+    playbook: playbooks/linux/0-rhel_sync_ssh_keys.yml
+    verbosity: 2
+    credentials:
+      - "SSH Key for EC2"
+
+  # EDA related templates
+  - name: EDA - Linux Deploy Monitoring Agent
+    job_type: run
+    inventory: Workshop Inventory
+    organization: Default
+    execution_environment: workshop-custom-ee
+    project: aap-workshop-examples
+    playbook: playbooks/linux/4-rhel_monitoring_deploy.yml
+    verbosity: 2
+    credentials:
+      - "SSH Key for EC2"
+    extra_vars:
+      zabbix_server: "zabbix.sandbox.ansiblelab.net"
+      installer_url: "https://repo.zabbix.com/zabbix/7.4/release/rhel/9/noarch/zabbix-release-latest.el9.noarch.rpm"
