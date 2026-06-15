@@ -2,6 +2,6 @@
 aap_organizations:
   - name: "{{ my_organization }}"
     galaxy_credentials:
-      - Automation Hub - certified
-      - Automation Hub - validated
+      - RH Automation Hub - certified
+      - RH Automation Hub - validated
       - Ansible Galaxy
