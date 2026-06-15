@@ -1,0 +1,14 @@
+---
+eda_rulebook_activations:
+  - name: Monitoring Events - ServiceNow
+    description: Events and alerts from external platforms
+    project: aap-workshop-examples
+    organization: "{{ my_organization }}"
+    rulebook: servicenow_events.yml
+    decision_environment: Default Decision Environment
+    event_streams:
+      - event_stream: Default Event Stream
+        # source_index:
+        source_name: __SOURCE_1
+    eda_credentials: Controller Credential
+    state: present
