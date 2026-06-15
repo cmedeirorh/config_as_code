@@ -1,0 +1,6 @@
+---
+hub_ee_registries:
+  - name: Red Hat Ecosystem Catalog
+    url: https://registry.redhat.io
+    username: "{{ rh_registry_username }}"
+    password: "{{ rh_registry_token }}"
