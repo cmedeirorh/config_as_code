@@ -1,0 +1,6 @@
+---
+eda_event_streams:
+  - name: Default Event Stream
+    credential_name: Event Stream Token Credential
+    organization: "{{ my_organization }}"
+    forward_events: true

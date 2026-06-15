@@ -1,0 +1,7 @@
+---
+eda_projects:
+  - name: aap-workshop-examples
+    url: https://github.com/cmedeirorh/aap-workshop-examples.git
+    organization: "{{ my_organization }}"
+    tls_validation: true
+    sync: true
