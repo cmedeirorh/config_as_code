@@ -1,0 +1,8 @@
+---
+controller_projects:
+  - name: aap-workshop-examples
+    organization: "{{ my_organization }}"
+    scm_type: git
+    scm_url: https://github.com/cmedeirorh/aap-workshop-examples
+    scm_branch: main
+    scm_update_on_launch: true
