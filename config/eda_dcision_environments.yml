@@ -1,0 +1,7 @@
+---
+eda_decision_environments:
+  - name: Default Decision Environment
+    description: Default Decision Environment
+    organization: "{{ my_organization }}"
+    image_url: "registry.redhat.io/ansible-automation-platform-26/de-supported-rhel8:latest"
+    credential: registry.redhat.io
