@@ -1,6 +1,7 @@
 ---
 controller_settings:
   settings:
+    SESSION_COOKIE_AGE: 1800
     REDHAT_USERNAME: "{{ redhat_client_id }}"
     REDHAT_PASSWORD: "{{ redhat_client_secret }}"
     INSIGHTS_TRACKING_STATE: true
