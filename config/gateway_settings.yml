@@ -1,8 +1,8 @@
 ---
 gateway_settings:
-  gateway_access_token_expiration: 3600
+  gateway_access_token_expiration: 86400
   gateway_basic_auth_enabled: true
-  SESSION_COOKIE_AGE: 3600
+  SESSION_COOKIE_AGE: 86400
   custom_login_info: |-
     WARNING: SECURED IT ENVIRONMENT
     This system is strictly for authorized use only. 
