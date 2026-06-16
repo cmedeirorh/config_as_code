@@ -4,8 +4,12 @@
   gather_facts: false
   
   tasks:
-    - name: Apply Red Hat Subscription
+  - name: Download the AAP manifest file from internal storage
+      ansible.builtin.get_url:
+        url: "{{ manifest_url }}"
+        dest: "{{ manifest_local }}"
+        mode: '0600'
+        
+    - name: Attach the license manifest to Ansible Automation Platform
       ansible.controller.license:
-        rh_username: "{{ redhat_client_id }}"
-        rh_password: "{{ redhat_client_secret }}"
-        use_lookup: true
+        manifest: "{{ manifest_local }}"
