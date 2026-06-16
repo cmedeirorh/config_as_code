@@ -1,9 +1,13 @@
 ---
-redhat_subscription_username: "{{ redhat_client_id }}"
-redhat_subscription_password: "{{ redhat_client_secret }}"
+redhat_subscription_client_id: "{{ redhat_client_id }}"
+redhat_subscription_client_secret: "{{ redhat_client_secret }}"
 
 controller_license:
   use_lookup: true
+  filters:
+    product_name: "Red Hat Ansible Automation Platform"
+    support_level: "Standard"
+    
 controller_settings:
   settings:
     SESSION_COOKIE_AGE: 1800
