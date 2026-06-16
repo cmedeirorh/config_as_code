@@ -5,11 +5,11 @@
   
   tasks:
   - name: Download the AAP manifest file from internal storage
-      ansible.builtin.get_url:
-        url: "{{ manifest_url }}"
-        dest: "{{ manifest_local }}"
-        mode: '0600'
+    ansible.builtin.get_url:
+      url: "{{ manifest_url }}"
+      dest: "{{ manifest_local }}"
+      mode: '0600'
         
-    - name: Attach the license manifest to Ansible Automation Platform
-      ansible.controller.license:
-        manifest: "{{ manifest_local }}"
+  - name: Attach the license manifest to Ansible Automation Platform
+    ansible.controller.license:
+      manifest: "{{ manifest_local }}"
