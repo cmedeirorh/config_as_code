@@ -2,11 +2,6 @@
 - name: Automate AAP License Activation
   hosts: localhost
   gather_facts: false
-  vars:
-    controller_host: "{{ aap_hostname }}"
-    controller_username: "{{ aap_username }}"
-    controller_password: "{{ aap_password }}"
-    validate_certs: false
   
   tasks:
   - name: Download the AAP manifest file from internal storage
@@ -17,4 +12,8 @@
         
   - name: Attach the license manifest to Ansible Automation Platform
     ansible.controller.license:
+      controller_host: "{{ aap_hostname }}"
+      controller_username: "{{ aap_username }}"
+      controller_password: "{{ aap_password }}"
+      validate_certs: false
       manifest: "{{ manifest_local }}"
