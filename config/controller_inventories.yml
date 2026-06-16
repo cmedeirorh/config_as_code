@@ -14,7 +14,7 @@ controller_inventory_sources:
     overwrite: true
     host_filter: 'node*'
     update_on_launch: true
-    update_cache_timeout: 300
+    update_cache_timeout: 600
     source_vars:
       hostnames:
         - tag:Name
