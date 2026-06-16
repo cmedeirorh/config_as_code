@@ -18,6 +18,7 @@
       mode: '0600'
         
   - name: Attach the license manifest to Ansible Automation Platform
+    ignore_errors: true
     ansible.controller.license:
       controller_host: "{{ aap_hostname }}"
       controller_username: "{{ aap_username }}"
