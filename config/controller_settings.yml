@@ -1,4 +1,6 @@
 ---
+controller_license:
+  manifest_content: "{{ manifest }}"
 controller_settings:
   settings:
     SESSION_COOKIE_AGE: 1800
