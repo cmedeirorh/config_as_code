@@ -1,7 +1,8 @@
 ---
+redhat_subscription_username: "{{ redhat_client_id }}"
+redhat_subscription_password: "{{ redhat_client_secret }}"
+
 controller_license:
-  redhat_subscription_username: "{{ redhat_client_id }}"
-  redhat_subscription_password: "{{ redhat_client_secret }}"
   use_lookup: true
 controller_settings:
   settings:
