@@ -3,6 +3,8 @@ gateway_settings:
   gateway_access_token_expiration: 86400
   gateway_basic_auth_enabled: true
   SESSION_COOKIE_AGE: 86400
+  SUBSCRIPTIONS_USERNAME: "{{ redhat_client_id }}"
+  SUBSCRIPTIONS_PASSWORD: "{{ redhat_client_secret }}"
   custom_login_info: |-
     WARNING: SECURED IT ENVIRONMENT
     This system is strictly for authorized use only. 
