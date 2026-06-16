@@ -24,6 +24,7 @@
       controller_password: "{{ aap_password }}"
       validate_certs: false
       manifest: "{{ manifest_local }}"
+      force: true
       
   - name: Apply AAP Configuration
     ansible.builtin.include_role:
