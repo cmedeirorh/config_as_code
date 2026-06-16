@@ -1,0 +1,11 @@
+---
+- name: Automate AAP License Activation
+  hosts: localhost
+  gather_facts: false
+  
+  tasks:
+    - name: Apply Red Hat Subscription
+      ansible.controller.license:
+        rh_username: "{{ redhat_client_id }}"
+        rh_password: "{{ redhat_client_secret }}"
+        use_lookup: true
