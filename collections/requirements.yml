@@ -3,3 +3,4 @@ collections:
   - name: ansible.platform
   - name: ansible.controller
   - name: infra.aap_configuration
+    version: 4.6.0
