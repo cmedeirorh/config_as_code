@@ -2,6 +2,9 @@
 - name: Apply Configuration as Code to AAP 2.7
   hosts: localhost
   gather_facts: false
+
+  vars:
+    ansible_async_dir: '/tmp/.ansible_async'
   
   pre_tasks:
     - name: Load declarative AAP configurations
