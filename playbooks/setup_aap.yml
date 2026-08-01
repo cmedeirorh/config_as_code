@@ -2,6 +2,8 @@
 - name: Apply Configuration as Code to AAP 2.7
   hosts: localhost
   gather_facts: false
+  connection: local
+  become: false
 
   vars:
     ansible_async_dir: '/tmp/.ansible_async'
