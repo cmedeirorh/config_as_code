@@ -1,6 +1,7 @@
 ---
 - name: Apply Configuration as Code to AAP 2.7
   hosts: localhost
+  become: false
   gather_facts: false
   
   pre_tasks:
