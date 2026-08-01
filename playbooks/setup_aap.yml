@@ -6,7 +6,7 @@
   become: false
 
   vars:
-    ansible_async_directory: "/tmp/.ansible_async"
+    aap_configuration_async_dir: '/tmp/.ansible_async'
   
   pre_tasks:
     - name: Load declarative AAP configurations
