@@ -1,7 +1,6 @@
 ---
 - name: Apply Configuration as Code to AAP 2.7
   hosts: localhost
-  become: false
   gather_facts: false
   
   pre_tasks:
@@ -11,23 +10,7 @@
         extensions:
           - 'yml'
           - 'yaml'
-  tasks:
-  - name: Download the AAP manifest file from internal storage
-    ansible.builtin.get_url:
-      url: "{{ manifest_url }}"
-      dest: "{{ manifest_local }}"
-      mode: '0600'
-        
-  - name: Attach the license manifest to Ansible Automation Platform
-    ignore_errors: true
-    ansible.controller.license:
-      controller_host: "{{ aap_hostname }}"
-      controller_username: "{{ aap_username }}"
-      controller_password: "{{ aap_password }}"
-      validate_certs: false
-      manifest: "{{ manifest_local }}"
-      force: true
-      
+  tasks:    
   - name: Apply AAP Configuration
     ansible.builtin.include_role:
       name: infra.aap_configuration.dispatch
