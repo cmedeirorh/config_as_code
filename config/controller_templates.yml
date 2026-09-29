@@ -47,7 +47,7 @@ controller_templates:
     organization: "{{ my_organization }}"
     execution_environment: workshop-custom-ee
     project: aap-workshop-examples
-    playbook: playbooks/linux/1.1-rhel_check_updates_servicenow.yaml
+    playbook: playbooks/linux/1.1-rhel_check_updates_servicenow.yml
     verbosity: 2
     ask_limit_on_launch: true
     ask_variables_on_launch: false
