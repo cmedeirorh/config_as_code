@@ -1,0 +1,27 @@
+
+## Prerequisites
+
+- Ansible installed on your local machine
+- Access to a running Red Hat Ansible Automation Platform instance
+- Required Ansible collections (see [Collections](#collections))
+- A valid AAP manifest file
+- Required variables defined (see [Required Variables](#required-variables))
+
+## Collections
+
+Install the required collections using:
+
+`ansible-galaxy collection install -r collections/requirements.yml`
+
+The following collections are required:
+
+| Collection | Description |
+|---|---|
+| `ansible.platform` | Ansible Platform modules |
+| `ansible.controller` | Ansible Controller modules |
+| `infra.aap_configuration` | AAP Configuration as Code roles |
+
+## Required Variables
+
+Create a `vars.yml` file (it is excluded from git) with the following variables:
+
