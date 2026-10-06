@@ -1,0 +1,21 @@
+---
+- name: Apply Configuration as Code to AAP 2.7
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  become: false
+
+  vars:
+    aap_configuration_async_dir: '/tmp/.ansible_async'
+  
+  pre_tasks:
+    - name: Load declarative AAP configurations
+      ansible.builtin.include_vars:
+        dir: ../config_aiops_workshop
+        extensions:
+          - 'yml'
+          - 'yaml'
+  tasks:
+  - name: Apply AAP Configuration
+    ansible.builtin.include_role:
+      name: infra.aap_configuration.dispatch

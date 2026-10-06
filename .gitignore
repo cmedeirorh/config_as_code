@@ -1,0 +1,8 @@
+.aider*
+vars.yml
+vars/*.yml
+group_vars/
+host_vars/
+*vault*
+*.vault
+.env
