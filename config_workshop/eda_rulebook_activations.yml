@@ -11,4 +11,4 @@ eda_rulebook_activations:
         # source_index:
         source_name: __SOURCE_1
     eda_credentials: Controller Credential
-    state: absent
+    state: present

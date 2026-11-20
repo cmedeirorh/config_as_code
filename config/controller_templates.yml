@@ -55,7 +55,7 @@ controller_templates:
       - "Machine Credential for Instances"
       - "ServiceNow Dev"
 
-  - name: RHEL ServiceNow - Apply Updates 
+  - name: RHEL ServiceNow - Apply Updates
     job_type: run
     inventory: Workshop Inventory
     organization: "{{ my_organization }}"
@@ -67,8 +67,8 @@ controller_templates:
     ask_variables_on_launch: false
     credentials:
       - "Machine Credential for Instances"
-      - "ServiceNow Dev"      
-      
+      - "ServiceNow Dev"
+
   # EDA related templates
   # - name: EDA - Linux Deploy Monitoring Agent
   #   job_type: run
@@ -140,4 +140,4 @@ controller_templates:
   #   ask_variables_on_launch: true
   #   credentials:
   #     - "Machine Credential for Instances"
-      
+

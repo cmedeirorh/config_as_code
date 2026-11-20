@@ -7,7 +7,7 @@
 
   vars:
     aap_configuration_async_dir: '/tmp/.ansible_async'
-  
+
   pre_tasks:
     - name: Load declarative AAP configurations
       ansible.builtin.include_vars:
@@ -16,6 +16,6 @@
           - 'yml'
           - 'yaml'
   tasks:
-  - name: Apply AAP Configuration
-    ansible.builtin.include_role:
-      name: infra.aap_configuration.dispatch
+    - name: Apply AAP Configuration
+      ansible.builtin.include_role:
+        name: infra.aap_configuration.dispatch

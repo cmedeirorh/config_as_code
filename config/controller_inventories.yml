@@ -12,7 +12,7 @@ controller_inventory_sources:
     credential: AWS EC2 Credential
     source: ec2
     overwrite: true
-    host_filter: 'node*'
+    host_filter: 'node.*'
     update_on_launch: true
     update_cache_timeout: 600
     source_vars:
