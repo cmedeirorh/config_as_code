@@ -1,196 +1,181 @@
 # Ansible Automation Platform - Configuration as Code
 
-This repository contains Ansible Configuration as Code (CaC) for managing Red Hat Ansible Automation Platform (AAP) resources, including Controller, Event-Driven Ansible (EDA), and Gateway settings.
+Declarative Configuration as Code (CaC) for Red Hat Ansible Automation Platform, managing Controller, Event-Driven Ansible (EDA), and Gateway resources via the [`infra.aap_configuration`](https://github.com/redhat-cop/aap_configuration) collection.
 
-## ⚠️ Security Notice
+## Security notice
 
-This repository uses Jinja2 template variables for all sensitive values. **Never commit actual credentials or secrets to this repository.**
+All sensitive values are Jinja2 variables. **Never commit credentials or secrets.** The `.gitignore` excludes `vars.yml`, `vars/*.yml`, vault files, and `.env`.
 
-All sensitive values must be provided separately via:
-- An Ansible Vault encrypted variables file
-- A `vars.yml` file (excluded from git via `.gitignore`)
+Supply secrets at runtime via:
+- A `vars.yml` file (not committed)
+- An Ansible Vault encrypted file
 - An external secrets manager
 
-## Repository Structure
+## Repository structure
 
-    .
-    ├── collections/
-    │   └── requirements.yml              # Required Ansible collections
-    ├── config/                           # Production AAP configuration
-    │   ├── controller_credential.yml
-    │   ├── controller_credential_types.yml
-    │   ├── controller_ee.yml
-    │   ├── controller_inventories.yml
-    │   ├── controller_projects.yml
-    │   ├── controller_settings.yml
-    │   ├── controller_templates.yml
-    │   ├── eda_credentials.yml
-    │   ├── eda_decision_environments.yml
-    │   ├── eda_event_streams.yml
-    │   ├── eda_projects.yml
-    │   ├── eda_rulebook_activations.yml
-    │   ├── gateway_organizations.yml
-    │   └── gateway_settings.yml
-    ├── config_workshop/                  # Workshop AAP configuration
-    │   ├── controller_credential.yml
-    │   ├── controller_credential_types.yml
-    │   ├── controller_ee.yml
-    │   ├── controller_inventories.yml
-    │   ├── controller_projects.yml
-    │   ├── controller_settings.yml
-    │   ├── controller_templates.yml
-    │   ├── eda_credentials.yml
-    │   ├── eda_decision_environments.yml
-    │   ├── eda_event_streams.yml
-    │   ├── eda_projects.yml
-    │   └── eda_rulebook_activations.yml
-    ├── config_aiops_workshop/            # AIOps Workshop AAP configuration
-    │   └── controller_projects.yml
-    └── playbooks/
-        ├── setup_aap.yml                 # Full production AAP setup
-        ├── setup_workshop.yml            # Workshop AAP setup
-        ├── setup_aiops_workshop.yml      # AIOps workshop AAP setup
-        └── activate_subs.yml             # AAP license activation only
+```
+.
+├── collections/
+│   └── requirements.yml              # Required Ansible collections
+├── config/                           # Production AAP configuration
+│   ├── controller_credential.yml     # Credentials (AWS, Machine, ServiceNow, Hub, Registry)
+│   ├── controller_credential_types.yml  # Custom types: ServiceNow ITSM, Dynatrace API Token
+│   ├── controller_ee.yml             # Execution environment
+│   ├── controller_inventories.yml    # Dynamic AWS EC2 inventory
+│   ├── controller_projects.yml       # Source control projects
+│   ├── controller_settings.yml       # Controller application settings
+│   ├── controller_templates.yml      # Job templates
+│   ├── eda_credentials.yml           # EDA credentials
+│   ├── eda_decision_environments.yml # EDA decision environments
+│   ├── eda_event_streams.yml         # EDA event streams
+│   ├── eda_projects.yml              # EDA source control projects
+│   ├── eda_rulebook_activations.yml  # EDA rulebook activations
+│   ├── gateway_organizations.yml     # Gateway organizations
+│   └── gateway_settings.yml          # Gateway application settings
+├── config_workshop/                  # Workshop AAP configuration
+│   └── (same structure as config/, workshop-specific values)
+├── config_aiops_workshop/            # AIOps workshop configuration
+│   └── controller_projects.yml
+└── playbooks/
+    ├── setup_aap.yml                 # Full production setup (includes license activation)
+    ├── setup_workshop.yml            # Workshop setup (requires pre-licensed controller)
+    ├── setup_aiops_workshop.yml      # AIOps workshop setup (requires pre-licensed controller)
+    └── activate_subs.yml             # License activation only
+```
 
 ## Prerequisites
 
-- Ansible installed on your local machine
-- Access to a running Red Hat Ansible Automation Platform instance
-- Required Ansible collections (see [Collections](#collections))
-- A valid AAP manifest file
-- Required variables defined (see [Required Variables](#required-variables))
+- Ansible installed locally
+- A running AAP instance
+- Required collections installed (see [Collections](#collections))
+- A valid AAP manifest file accessible at `manifest_url`
+- Variables file with all required values (see [Required Variables](#required-variables))
 
 ## Collections
 
-Install the required collections using:
+```bash
+ansible-galaxy collection install -r collections/requirements.yml
+```
 
-`ansible-galaxy collection install -r collections/requirements.yml`
-
-The following collections are required:
-
-| Collection | Version | Description |
+| Collection | Version | Purpose |
 |---|---|---|
 | `ansible.platform` | latest | Ansible Platform modules |
-| `ansible.controller` | latest | Ansible Controller modules |
-| `infra.aap_configuration` | 4.7.0 | AAP Configuration as Code roles |
+| `ansible.controller` | latest | Controller modules |
+| `infra.aap_configuration` | 4.7.0 | CaC dispatch role |
 
-## Required Variables
+## Required variables
 
-Create a `vars.yml` file (it is excluded from git) with the following variables:
+Create a `vars.yml` file in the project root (excluded from git):
 
-    # AAP Connection
-    aap_hostname: "https://your-aap-hostname"
-    aap_username: "admin"
-    aap_password: "your-aap-password"
+```yaml
+# AAP connection
+aap_hostname: "https://your-aap-hostname"
+aap_username: "admin"
+aap_password: "your-aap-password"
 
-    # AAP Manifest
-    manifest_url: "https://url-to-your-manifest"
-    manifest_local: "/tmp/manifest.zip"
+# AAP manifest (required for setup_aap.yml and activate_subs.yml)
+manifest_url: "https://url-to-your-manifest-file"
+manifest_local: "/tmp/manifest.zip"
 
-    # Organization
-    my_organization: "Your Organization"
+# Organization
+my_organization: "Your Organization"
 
-    # Red Hat Subscription
-    redhat_client_id: "your-client-id"
-    redhat_client_secret: "your-client-secret"
+# Red Hat subscription
+redhat_client_id: "your-client-id"
+redhat_client_secret: "your-client-secret"
 
-    # Red Hat Registry
-    rh_registry_username: "your-registry-username"
-    rh_registry_token: "your-registry-token"
+# Red Hat registry
+rh_registry_username: "your-registry-username"
+rh_registry_token: "your-registry-token"
 
-    # Red Hat Automation Hub
-    red_hat_auto_hub_token: "your-automationhub-token"
+# Red Hat Automation Hub
+red_hat_auto_hub_token: "your-automationhub-token"
 
-    # AWS Credentials
-    aws_access_key: "your-aws-access-key"
-    aws_secret_key: "your-aws-secret-key"
+# AWS credentials
+aws_access_key: "your-aws-access-key"
+aws_secret_key: "your-aws-secret-key"
 
-    # Machine Credentials
-    ssh_username: "your-ssh-username"
-    ssh_priv_key: |
-      -----BEGIN OPENSSH PRIVATE KEY-----
-      your-private-key-here
-      -----END OPENSSH PRIVATE KEY-----
+# Machine (SSH) credential
+ssh_username: "ec2-user"
+ssh_priv_key: |
+  -----BEGIN OPENSSH PRIVATE KEY-----
+  ...
+  -----END OPENSSH PRIVATE KEY-----
 
-    # ServiceNow
-    snow_instance: "https://your-instance.service-now.com"
-    snow_username: "your-snow-username"
-    snow_password: "your-snow-password"
+# ServiceNow
+snow_instance: "https://your-instance.service-now.com"
+snow_username: "your-snow-username"
+snow_password: "your-snow-password"
 
-    # EDA
-    eda_event_stream_token: "your-eda-event-stream-token"
+# EDA event stream token
+eda_event_stream_token: "your-eda-event-stream-token"
 
-    # Workshop specific
-    uuid: "your-workshop-uuid"
+# Workshop UUID (used to filter EC2 hosts by owner tag)
+uuid: "your-workshop-uuid"
+```
 
 ## Usage
 
-### Full Production AAP Setup
+### Full production setup
 
-Configures all production AAP resources including Controller, EDA, and Gateway:
+Downloads the manifest, activates the AAP license, and applies all configuration from `config/`:
 
-`ansible-playbook playbooks/setup_aap.yml -e @vars.yml`
+```bash
+ansible-playbook playbooks/setup_aap.yml -e @vars.yml
+```
 
-### Workshop AAP Setup
+### Workshop setup
 
-Configures AAP resources for a workshop environment:
+Applies workshop configuration from `config_workshop/`. Requires the controller to already be licensed — run `activate_subs.yml` first on a fresh instance:
 
-`ansible-playbook playbooks/setup_workshop.yml -e @vars.yml`
+```bash
+# 1. License the controller (fresh instances only)
+ansible-playbook playbooks/activate_subs.yml -e @vars.yml
 
-### AIOps Workshop AAP Setup
+# 2. Apply workshop configuration
+ansible-playbook playbooks/setup_workshop.yml -e @vars.yml
+```
 
-Configures AAP resources for an AIOps workshop environment:
+### AIOps workshop setup
 
-`ansible-playbook playbooks/setup_aiops_workshop.yml -e @vars.yml`
+Applies AIOps workshop configuration from `config_aiops_workshop/`. Same licensing prerequisite applies:
 
-### License Activation Only
+```bash
+ansible-playbook playbooks/setup_aiops_workshop.yml -e @vars.yml
+```
 
-Activates the AAP license without applying any other configuration:
+### License activation only
 
-`ansible-playbook playbooks/activate_subs.yml -e @vars.yml`
+```bash
+ansible-playbook playbooks/activate_subs.yml -e @vars.yml
+```
 
-## Configuration Details
+## Configuration reference
 
-### Controller Configuration
+### Job templates
 
-- **Credentials** - AWS, Machine, ServiceNow, Container Registry, and Automation Hub credentials
-- **Credential Types** - Custom credential types for ServiceNow ITSM and Dynatrace API
-- **Execution Environments** - Container images used for job execution (`quay.io/redhat_emp1/cmedeiro-ee-general:latest`)
-- **Inventories** - Dynamic AWS EC2 inventory with tag-based filtering
-- **Projects** - Source control projects linked to GitHub
-- **Templates** - Job templates for RHEL management, patching, and ServiceNow integration
-- **Settings** - Controller application settings including Red Hat subscription configuration
+| Template | Playbook | Purpose |
+|---|---|---|
+| RHEL Sync SSH Keys | `linux/0-rhel_sync_ssh_keys.yml` | Distribute SSH keys to RHEL instances |
+| RHEL Deploy APP With Podman | `linux/6-rhel_podman_app_deploy.yml` | Deploy containerized app via Podman |
+| RHEL SSH Hardening | `linux/3-rhel_devsec_ssh_hardening.yml` | Apply DevSec SSH hardening profile |
+| RHEL ServiceNow - Check for Updates | `linux/1.1-rhel_check_updates_servicenow.yml` | Check for RHEL updates, open ServiceNow record |
+| RHEL ServiceNow - Apply Updates | `linux/1.2-rhel_apply_update_servicenow.yml` | Apply updates, resolve ServiceNow record |
 
-### EDA Configuration
+### Inventory
 
-- **Credentials** - Controller and event stream token credentials
-- **Decision Environments** - Container images for EDA (`registry.redhat.io/ansible-automation-platform-26/de-supported-rhel9:latest`)
-- **Event Streams** - Incoming event stream configurations with token authentication
-- **Projects** - EDA source control projects linked to GitHub
-- **Rulebook Activations** - Active rulebook configurations for ServiceNow event monitoring
+A single dynamic inventory (`Workshop Inventory`) is backed by an AWS EC2 source that:
+- Filters hosts by the `node.*` name pattern and an `owner` tag matching `{{ uuid }}`
+- Sets `ansible_host` from the public IP and `ansible_user` to `ec2-user`
+- Groups hosts by OS platform, blueprint tag, and owner tag
 
-### Gateway Configuration
+### EDA
 
-- **Organizations** - Gateway organization definitions with Automation Hub credentials
-- **Settings** - Gateway application settings including session management and subscription configuration
-
-### Job Templates
-
-| Template | Description |
-|---|---|
-| RHEL Sync SSH Keys | Synchronizes SSH keys across RHEL instances |
-| RHEL Deploy APP With Podman | Deploys containerized applications using Podman |
-| RHEL SSH Hardening | Applies SSH hardening using DevSec profile |
-| RHEL ServiceNow - Check for Updates | Checks for RHEL updates and creates ServiceNow records |
-| RHEL ServiceNow - Apply Updates | Applies RHEL updates and updates ServiceNow records |
+The `Monitoring Events - ServiceNow` rulebook activation listens on the `Default Event Stream` (token-authenticated) and routes events to Controller job templates.
 
 ## Contributing
 
-1. Fork this repository
+1. Fork the repository
 2. Create a feature branch
-3. Make your changes, ensuring no secrets or credentials are hardcoded
-4. Submit a pull request
-
-## License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+3. Verify no credentials or secrets are hardcoded before committing
+4. Open a pull request
